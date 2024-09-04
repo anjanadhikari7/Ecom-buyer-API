@@ -1,5 +1,5 @@
 import express from "express";
-import { newUserValidation } from "../middleware/validationMiddleware/userValidation.js";
+import { newUserValidation } from "../Middleware/validationMiddleware/userValidation.js";
 import { comparePassword, hashPassword } from "../Utility/bcryptHelper.js";
 import {
   createUser,

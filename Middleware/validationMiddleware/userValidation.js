@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { buildErrorResponse } from "../../utility/responseHelper.js";
+import { buildErrorResponse } from "../../Utility/responseHelper.js";
 
 // https://joi.dev/api/?v=17.12.0
 
