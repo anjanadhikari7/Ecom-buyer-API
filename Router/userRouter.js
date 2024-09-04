@@ -25,7 +25,7 @@ import { generateJWTs } from "../Utility/jwtHelper.js";
 import {
   adminAuth,
   refreshAuth,
-} from "../middleware/authMiddleware/authMiddleware.js";
+} from "../Middleware/authMiddleware/authMiddleware.js";
 import generateOTP from "../Utility/otpGenerateHelper.js";
 const userRouter = express.Router();
 
