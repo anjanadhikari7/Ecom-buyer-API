@@ -6,7 +6,7 @@ import categoryRouter from "./Router/categoryRouter.js";
 import productRouter from "./Router/productRouter.js";
 import userRouter from "./Router/userRouter.js";
 import orderRouter from "./Router/orderrouter.js";
-
+import Stripe from "stripe";
 const app = express();
 const PORT = process.env.PORT || 8001;
 
@@ -18,7 +18,26 @@ app.use(express.json());
 
 // Connect to database
 connectToMongoDb();
+//STRIPE Integration
 
+const stripe = new Stripe(process.env.STRIPE_API_KEY);
+app.post("/create-payment-intent", async (req, res) => {
+  try {
+    const { amount } = req.body;
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "aud",
+      payment_method: "pm_card_mastercard",
+    });
+    res.json({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    res.json({
+      error: error.message,
+    });
+  }
+});
 // Routes
 
 app.use("/api/category", categoryRouter);

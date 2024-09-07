@@ -3,15 +3,18 @@ import {
   buildErrorResponse,
   buildSuccessResponse,
 } from "../Utility/responseHelper.js";
+import { createOrder, getOrders } from "../Model/orderModel.js";
 
 const orderRouter = express.Router();
 // GET Orders by user
 orderRouter.get("/", async (req, res) => {
   try {
+    const { userId } = req.body;
     const orders = await getOrders();
+    const filteredOrders = orders?.filter((order) => order.userId === userId);
 
     orders?.length
-      ? buildSuccessResponse(res, orders, "Orders")
+      ? buildSuccessResponse(res, filteredOrders, "Orders")
       : buildErrorResponse(res, "No orders available");
   } catch (error) {
     buildErrorResponse(res, "Could not fetch data");

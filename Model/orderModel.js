@@ -1,4 +1,4 @@
-import orderSchema from "../Schema/orderSchema";
+import orderSchema from "../Schema/orderSchema.js";
 
 // Create an order
 export const createOrder = (orderObj) => {
