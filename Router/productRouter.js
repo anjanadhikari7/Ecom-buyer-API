@@ -1,9 +1,14 @@
 import express from "express";
-import { getProduct, getProducts } from "../Model/productModel.js";
+import {
+  getProduct,
+  getProducts,
+  updateproduct,
+} from "../Model/productModel.js";
 import {
   buildErrorResponse,
   buildSuccessResponse,
 } from "../Utility/responseHelper.js";
+import { UserAuth } from "../Middleware/authMiddleware/authMiddleware.js";
 const productRouter = express.Router();
 
 // GET A PRODUCT
@@ -30,6 +35,20 @@ productRouter.get("/", async (req, res) => {
       : buildErrorResponse(res, "Could not fetch data");
   } catch (error) {
     buildErrorResponse(res, "Could not fetch data");
+  }
+});
+
+// Update
+
+productRouter.patch("/", UserAuth, async (req, res) => {
+  try {
+    const product = await updateproduct(req.body);
+
+    product?._id
+      ? buildSuccessResponse(res, product, "Product Updated Successfully.")
+      : buildErrorResponse(res, "Could not update the product!");
+  } catch (error) {
+    buildErrorResponse(res, "Could not update data");
   }
 });
 

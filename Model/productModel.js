@@ -9,3 +9,10 @@ export const getProduct = (sku) => {
 export const getProducts = () => {
   return productSchema.find();
 };
+
+//Update Product
+export const updateproduct = (updatedObject) => {
+  return productSchema.findByIdAndUpdate(updatedObject?._id, updatedObject, {
+    new: true,
+  });
+};
