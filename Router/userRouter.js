@@ -266,9 +266,10 @@ userRouter.post("/reset-password", async (req, res) => {
 });
 
 // Update User
-userRouter.patch("/", adminAuth, async (req, res) => {
+userRouter.patch("/", async (req, res) => {
   try {
     const { _id, ...userData } = req.body;
+    console.log("userData", _id);
 
     const updatedUser = await updateUser({ _id }, userData);
 
