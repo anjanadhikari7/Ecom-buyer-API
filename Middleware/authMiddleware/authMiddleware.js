@@ -41,6 +41,37 @@ export const adminAuth = async (req, res, next) => {
     return buildErrorResponse(res, error.message || "Invalid token!!");
   }
 };
+// User Auth
+export const UserAuth = async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+
+    // Validate if accessJet is valid
+
+    const decoded = verifyAccessJWT(authorization);
+
+    if (decoded?.email) {
+      const session = await getSession({
+        token: authorization,
+        userEmail: decoded.email,
+      });
+
+      if (session?._id) {
+        const user = await findUserByEmail(decoded.email);
+        if (user?._id) {
+          user.password = undefined;
+          req.userInfo = user;
+
+          return next();
+        }
+      }
+    }
+
+    throw new error("Invalid token, unauthorized");
+  } catch (error) {
+    return buildErrorResponse(res, error.message || "Invalid token!!");
+  }
+};
 
 // RefreshAuth
 

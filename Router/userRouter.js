@@ -161,19 +161,6 @@ userRouter.get("/", adminAuth, async (req, res) => {
   }
 });
 
-// Get users
-userRouter.get("/all", adminAuth, async (req, res) => {
-  try {
-    const users = await getUsers();
-
-    if (users?.length > 0) {
-      return buildSuccessResponse(res, users, "Got all users");
-    }
-  } catch (error) {
-    buildErrorResponse(res, error.message);
-  }
-});
-
 // GET NEW ACCESS TOKEN
 userRouter.get("/accessjwt", refreshAuth);
 
