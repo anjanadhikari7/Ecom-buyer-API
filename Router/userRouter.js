@@ -25,6 +25,7 @@ import { generateJWTs } from "../Utility/jwtHelper.js";
 import {
   adminAuth,
   refreshAuth,
+  UserAuth,
 } from "../Middleware/authMiddleware/authMiddleware.js";
 import generateOTP from "../Utility/otpGenerateHelper.js";
 const userRouter = express.Router();
@@ -153,7 +154,7 @@ userRouter.post("/login", async (req, res) => {
 // PRIVATE ROUTES
 
 //Get user
-userRouter.get("/", adminAuth, async (req, res) => {
+userRouter.get("/", UserAuth, async (req, res) => {
   try {
     buildSuccessResponse(res, req.userInfo, "User Info");
   } catch (error) {
@@ -165,7 +166,7 @@ userRouter.get("/", adminAuth, async (req, res) => {
 userRouter.get("/accessjwt", refreshAuth);
 
 //LOGOUT USER
-userRouter.post("/logout", adminAuth, async (req, res) => {
+userRouter.post("/logout", UserAuth, async (req, res) => {
   try {
     const { email } = req.body;
     const { authorization } = req.headers;
