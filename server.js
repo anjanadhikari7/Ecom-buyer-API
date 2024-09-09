@@ -5,7 +5,7 @@ import { connectToMongoDb } from "./config/dbconfig.js";
 import categoryRouter from "./Router/categoryRouter.js";
 import productRouter from "./Router/productRouter.js";
 import userRouter from "./Router/userRouter.js";
-import orderRouter from "./Router/orderrouter.js";
+import orderRouter from "./Router/orderRouter.js";
 import Stripe from "stripe";
 const app = express();
 const PORT = process.env.PORT || 8001;
